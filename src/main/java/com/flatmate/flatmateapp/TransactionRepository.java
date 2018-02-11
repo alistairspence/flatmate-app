@@ -1,9 +1,8 @@
 package com.flatmate.flatmateapp;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
-import java.util.Set;
-
-public interface TransactionRepository extends JpaRepository<Transaction, Long> {
-	Set<Transaction> findByAccountUsername(String username);
-} 
+@Repository
+public interface TransactionRepository extends CrudRepository<Transaction, Long> {
+}

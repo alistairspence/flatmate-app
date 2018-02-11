@@ -3,6 +3,9 @@ package com.flatmate.flatmateapp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class AccountService {
 
@@ -10,7 +13,7 @@ public class AccountService {
     private final TransactionRepository transactionRepository;
 
     @Autowired
-    public AccountService(AccountRepository accountRepository, TransactionRepository transactionRepository) {
+    public AccountService(final AccountRepository accountRepository, final TransactionRepository transactionRepository) {
         this.accountRepository = accountRepository;
         this.transactionRepository = transactionRepository;
     }
@@ -19,9 +22,11 @@ public class AccountService {
         return accountRepository.findOne(userId);
     }
 
-//    public List<Account> getAccounts() {
-//        return accountRepository.findAll();
-//    }
+    public List<Account> getAccounts() {
+        final List<Account> accounts = new ArrayList<>();
+        accountRepository.findAll().forEach(accounts::add);
+        return accounts;
+    }
 
     public Account createAccount(final Account account) {
         return accountRepository.save(account);
