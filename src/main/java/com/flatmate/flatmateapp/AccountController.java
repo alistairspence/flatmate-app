@@ -1,7 +1,12 @@
 package com.flatmate.flatmateapp;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -9,22 +14,23 @@ import java.util.List;
 @RequestMapping("/accounts")
 public class AccountController {
 
-    private AccountService accountService;
+    private final AccountService accountService;
 
     @Autowired
-    public AccountController(AccountService accountService) {
+    public AccountController(final AccountService accountService) {
         this.accountService = accountService;
     }
 
+    @ResponseBody
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     public Account getAccount(@PathVariable final Long userId) {
         return accountService.getAccountById(userId);
     }
 
-//    @RequestMapping(method = RequestMethod.GET)
-//    public List<Account> getAccounts() {
-//        return accountService.getAccounts();
-//    }
+    @RequestMapping(method = RequestMethod.GET)
+    public List<Account> getAccounts() {
+        return accountService.getAccounts();
+    }
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST)
@@ -32,9 +38,8 @@ public class AccountController {
         return accountService.createAccount(account);
     }
 
-    // TODO: fix this
     @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
-    public void deleteAccount(@RequestParam final Long userId) {
+    public void deleteAccount(@PathVariable final Long userId) {
         accountService.deleteAccount(userId);
     }
 
