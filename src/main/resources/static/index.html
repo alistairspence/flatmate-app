@@ -57,12 +57,37 @@
         </div>
       </nav>
     </header>
+
+  <script>
+    function getAccounts() {
+        $(document).ready(function () {
+            $("button").click(function () {
+                $.getJSON("http://192.168.0.10:8080/accounts", function (data) {
+                    var items = [];
+                    $.each(data, function (key, account) {
+                        items.push( "<li id='" + key + "'>" + JSON.stringify(account) + "</li>" );
+                    });
+                    $( "<ul/>", {
+                        "class": "my-new-list",
+                        html: items.join( "" )
+                    }).appendTo( "body" );
+
+                });
+            });
+        });
+    }
+  </script>
     
     <div class="container">
 
       <br/>
       <br/>
 
+
+      <form class="form-inline mt-2 mt-md-0">
+        <input class="form-control mr-sm-2" type="text" placeholder="Test" aria-label="Test">
+        <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="(getAccounts())">Search</button>
+      </form>
 
      <p>test<p>
 
@@ -79,7 +104,8 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-    <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
+  <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
+  <script>window.jQuery || document.write('<script src="../../../../assets/js/vendor/jquery.min.js"><\/script>')</script>
     <script src="/bootstrap/css/popper.min.js"></script>
     <script src="/bootstrap/css/bootstrap.min.js"></script>
   </body>
