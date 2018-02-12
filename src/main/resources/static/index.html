@@ -62,7 +62,7 @@
     function getAccounts() {
         $(document).ready(function () {
             $("button").click(function () {
-                $.getJSON("http://192.168.0.10:8080/accounts", function (data) {
+                $.getJSON("http://localhost:8080/accounts", function (data) {
                     var items = [];
                     $.each(data, function (key, account) {
                         items.push( "<li id='" + key + "'>" + JSON.stringify(account) + "</li>" );
