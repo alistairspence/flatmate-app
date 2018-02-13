@@ -1,5 +1,6 @@
-package com.flatmate.flatmateapp;
+package com.flatmate.flatmateregistry;
 
+import com.flatmate.flatmatepersistence.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

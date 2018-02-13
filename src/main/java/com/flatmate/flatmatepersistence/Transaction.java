@@ -1,4 +1,4 @@
-package com.flatmate.flatmateapp;
+package com.flatmate.flatmatepersistence;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
