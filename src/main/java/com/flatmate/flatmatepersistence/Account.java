@@ -1,6 +1,5 @@
-package com.flatmate.flatmateapp;
+package com.flatmate.flatmatepersistence;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.Entity;
