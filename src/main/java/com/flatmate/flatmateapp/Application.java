@@ -5,7 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.oauth2.client.EnableOAuth2Sso;
 import org.springframework.context.annotation.ComponentScan;
 
-@EnableOAuth2Sso
+//@EnableOAuth2Sso
 @SpringBootApplication
 @ComponentScan
 public class Application {
