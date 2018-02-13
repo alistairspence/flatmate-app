@@ -7,6 +7,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -21,6 +22,9 @@ public class Transaction {
 	@JsonIgnore
 	@ManyToOne(fetch= FetchType.LAZY)
 	@JoinColumn(name="TRANSACTION_ID")
+	@JoinTable(name = "TRANSACTION_ACCOUNT",
+		joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
+		inverseJoinColumns = @JoinColumn(name = "transaction_id", referencedColumnName = "transaction_id"))
 	private Account account;
 
 	private Integer amount;
