@@ -1,11 +1,14 @@
 package com.flatmate.flatmateregistry;
 
+import com.flatmate.flatmatepersistence.Account;
 import com.flatmate.flatmatepersistence.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class TransactionService {
@@ -28,7 +31,13 @@ public class TransactionService {
     }
 
     public Transaction createTransaction(final Transaction transaction) {
-        return this.transactionRepository.save(transaction);
+        Account account = accountRepository.findAccountByUsernameAndPassword(transaction.getAccount().getUsername(), transaction.getAccount().getPassword());
+        transaction.setAccount(account);
+        Transaction pendingTransaction = this.transactionRepository.save(transaction);
+        Set<Transaction> transactionSet = new HashSet<>();
+        transactionSet.add(pendingTransaction);
+        account.setTransactions(transactionSet);
+        return pendingTransaction;
     }
 
     public void deleteTransaction(final Long transactionId) { transactionRepository.delete(transactionId); }

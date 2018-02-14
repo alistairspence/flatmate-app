@@ -1,6 +1,5 @@
 package com.flatmate.flatmateapi;
 
-import com.flatmate.flatmateregistry.AccountService;
 import com.flatmate.flatmatepersistence.Transaction;
 import com.flatmate.flatmateregistry.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +16,10 @@ import java.util.List;
 @RequestMapping("/transactions")
 public class TransactionController {
 
-	private final AccountService accountService;
 	private final TransactionService transactionService;
 
 	@Autowired
-	public TransactionController(final AccountService accountService, final TransactionService transactionService) {
-		this.accountService = accountService;
+	public TransactionController(final TransactionService transactionService) {
 		this.transactionService = transactionService;
 	}
 
@@ -35,6 +32,7 @@ public class TransactionController {
 		return transactionService.getTransactions();
 	}
 
+	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
 	public Transaction postTransaction(@RequestBody final Transaction transaction) {
 		return this.transactionService.createTransaction(transaction);

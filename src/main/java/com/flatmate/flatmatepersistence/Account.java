@@ -26,7 +26,7 @@ public class Account {
 	@OneToMany(mappedBy = "account")
 	private Set<Transaction> transactions = new HashSet<>();
 
-	private Account() {}
+	public Account() {}
 
 	public Account(final String username, final String password) {
 		this.username = username;
@@ -40,5 +40,9 @@ public class Account {
 	public String getPassword() { return password; }
 
 	public Set<Transaction> getTransactions() { return transactions; }
+
+	public void setTransactions(Set<Transaction> transactions) {
+		this.transactions = transactions;
+	}
 
 }
