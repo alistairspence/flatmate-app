@@ -1,11 +1,13 @@
 package com.flatmate.flatmateregistry;
 
 import com.flatmate.flatmatepersistence.Account;
+import com.flatmate.flatmatepersistence.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class AccountService {
@@ -34,6 +36,11 @@ public class AccountService {
     }
 
     public void deleteAccount(final Long userId) {
+        Account accountToDelete = accountRepository.findOne(userId);
+        Set<Transaction> transactions = accountToDelete.getTransactions();
+        for (Transaction t : transactions) {
+            transactionRepository.delete(t.getId());
+        }
         accountRepository.delete(userId);
     }
 
