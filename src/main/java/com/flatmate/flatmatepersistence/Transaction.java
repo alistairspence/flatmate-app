@@ -1,8 +1,6 @@
 package com.flatmate.flatmatepersistence;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
