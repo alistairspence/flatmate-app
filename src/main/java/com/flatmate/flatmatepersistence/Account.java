@@ -33,6 +33,11 @@ public class Account {
 		this.password = password;
 	}
 
+	// TODO(alistair): only for testing purposes - shouldn't expose something like this!
+	public void setId(final Long id) {
+		this.id = id;
+	}
+
 	public Long getId() { return id; }
 
 	public String getUsername() { return username; }
