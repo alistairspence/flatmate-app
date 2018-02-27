@@ -1,7 +1,7 @@
-package com.flatmate.flatmateapi;
+package com.flatmate.flatmateregistry;
 
 import com.flatmate.flatmatepersistence.Account;
-import com.flatmate.flatmateregistry.AccountService;
+import com.flatmate.flatmatepersistence.Transaction;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -9,44 +9,49 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
-public class AccountControllerTest {
+public class AccountServiceTest {
 
     @InjectMocks
-    private AccountController accountController;
+    private AccountService accountService;
 
     @Mock
-    private AccountService accountService;
+    private AccountRepository accountRepository;
+
+    @Mock
+    private TransactionRepository transactionRepository;
 
     @Mock
     private Account account;
 
+    @Mock
+    private Transaction transaction;
+
     @Test
-    public void shouldGetAccount() {
-        when(accountService.getAccountById(account.getId())).thenReturn(account);
-        Assert.assertEquals(account, accountController.getAccount(account.getId()));
+    public void shouldGetAccountById() {
+        when(accountRepository.findOne(account.getId())).thenReturn(account);
+        Assert.assertEquals(account, accountService.getAccountById(account.getId()));
     }
 
     @Test
     public void shouldGetAllAccounts() {
         List<Account> accounts = new ArrayList<>();
-        when(accountService.getAccounts()).thenReturn(accounts);
-        Assert.assertEquals(accounts, accountController.getAccounts());
+        accounts.add(account);
+        when(accountRepository.findAll()).thenReturn(accounts);
+        Assert.assertEquals(accounts, accountService.getAccounts());
     }
 
     @Test
     public void shouldCreateValidAccount() {
-        Account account = new Account("test", "test");
-        when(accountService.createAccount(account)).thenReturn(account);
-        Assert.assertEquals(account, accountController.createAccount(account));
+        when(accountRepository.save(account)).thenReturn(account);
+        Assert.assertEquals(account, accountService.createAccount(account));
     }
 
     // TODO(alistair): how should these be tested?
