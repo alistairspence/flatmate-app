@@ -35,7 +35,7 @@ public class TransactionController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
 	public Transaction postTransaction(@RequestBody final Transaction transaction) {
-		return this.transactionService.createTransaction(transaction);
+		return transactionService.createTransaction(transaction);
 	}
 
 	@RequestMapping(value = "/{transactionId}", method = RequestMethod.DELETE)

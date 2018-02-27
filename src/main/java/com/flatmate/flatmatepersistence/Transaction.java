@@ -21,10 +21,9 @@ public class Transaction {
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@ManyToOne(fetch= FetchType.LAZY)
-	@JoinColumn(name="TRANSACTION_ID")
 	@JoinTable(name = "TRANSACTION_ACCOUNT",
-		joinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"),
-		inverseJoinColumns = @JoinColumn(name = "transaction_id", referencedColumnName = "transaction_id"))
+		joinColumns = @JoinColumn(name = "transaction_id", referencedColumnName = "id"),
+		inverseJoinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"))
 	private Account account;
 
 	private Integer amount;
