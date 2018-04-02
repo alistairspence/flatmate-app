@@ -36,7 +36,7 @@ public class AccountController {
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST)
-    public Account createAccount(@RequestBody Account account) {
+    public Account createAccount(@RequestBody final Account account) {
         return accountService.createAccount(account);
     }
 

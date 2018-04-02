@@ -44,11 +44,11 @@ public class Transaction {
 		return account;
 	}
 
-	public Integer getAmount() { return amount; }
-
 	public void setAccount(final Account account) {
 		this.account = account;
 	}
+
+	public Integer getAmount() { return amount; }
 
 	public LocalDateTime getLocalDateTime() { return localDateTime; }
 
