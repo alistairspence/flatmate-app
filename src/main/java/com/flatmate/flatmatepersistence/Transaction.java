@@ -10,6 +10,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "flatmate_transaction")
@@ -27,6 +28,8 @@ public class Transaction {
 	private Account account;
 
 	private Integer amount;
+
+	private LocalDateTime localDateTime;
 
 	public Transaction() {}
 
@@ -46,4 +49,9 @@ public class Transaction {
 	public void setAccount(final Account account) {
 		this.account = account;
 	}
+
+	public LocalDateTime getLocalDateTime() { return localDateTime; }
+
+	public void setLocalDateTime(final LocalDateTime localDateTime) { this.localDateTime = localDateTime; }
+
 }

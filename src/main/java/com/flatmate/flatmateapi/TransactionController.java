@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -35,6 +36,7 @@ public class TransactionController {
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
 	public Transaction postTransaction(@RequestBody final Transaction transaction) {
+		transaction.setLocalDateTime(LocalDateTime.now());
 		return transactionService.createTransaction(transaction);
 	}
 
