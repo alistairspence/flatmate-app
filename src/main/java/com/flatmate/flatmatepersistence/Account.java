@@ -57,12 +57,12 @@ public class Account {
 
 	public Set<Transaction> getTransactions() { return transactions; }
 
-	public void setTransactions(Set<Transaction> transactions) {
+	public void setTransactions(final Set<Transaction> transactions) {
 		this.transactions = transactions;
 	}
 
-	public void setHouse(final House house) { this.house = house; }
-
 	public House getHouse() { return house; }
+
+	public void setHouse(final House house) { this.house = house; }
 
 }

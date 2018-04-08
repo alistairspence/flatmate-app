@@ -32,31 +32,28 @@ public class HouseService {
     public House createHouse(final House house) { return houseRepository.save(house); }
 
     public void deleteHouse(final Long houseId) {
-        House houseToDelete = houseRepository.findOne(houseId);
-        Set<Account> users = houseToDelete.getUsers();
-        for (Account user : users) {
-            user.setHouse(null);
-        }
+        final House houseToDelete = houseRepository.findOne(houseId);
+        final Set<Account> users = houseToDelete.getUsers();
+        users.forEach(account -> account.setHouse(null));
         houseRepository.delete(houseId);
     }
 
     public Set<Account> getUsersForHouse(final Long houseId) {
-        House houseToReturn = houseRepository.findOne(houseId);
+        final House houseToReturn = houseRepository.findOne(houseId);
         return houseToReturn.getUsers();
     }
 
     public House addUserToHouse(final Long houseId, final Long userId) {
-        House house = houseRepository.findOne(houseId);
-        Account userToAdd = accountRepository.findOne(userId);
-        house.addUser(userToAdd);
-        userToAdd.setHouse(house);
-        house = houseRepository.save(house);
-        return house;
+        final House temporaryHouse = houseRepository.findOne(houseId);
+        final Account userToAdd = accountRepository.findOne(userId);
+        temporaryHouse.addUser(userToAdd);
+        userToAdd.setHouse(temporaryHouse);
+        return houseRepository.save(temporaryHouse);
     }
 
     public House removeUserFromHouse(final Long houseId, final Long userId) {
-        Account userToRemove = accountRepository.findOne(userId);
-        House house = houseRepository.findOne(houseId);
+        final Account userToRemove = accountRepository.findOne(userId);
+        final House house = houseRepository.findOne(houseId);
         house.removeUser(userToRemove);
         return houseRepository.save(house);
     }

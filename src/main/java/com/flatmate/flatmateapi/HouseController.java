@@ -32,7 +32,7 @@ public class HouseController {
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST)
-    public House createHouse(@RequestBody House house) { return houseService.createHouse(house); }
+    public House createHouse(@RequestBody final House house) { return houseService.createHouse(house); }
 
     @RequestMapping(value = "/{houseId}", method = RequestMethod.DELETE)
     public void deleteHouse(@PathVariable final Long houseId) { houseService.deleteHouse(houseId); }

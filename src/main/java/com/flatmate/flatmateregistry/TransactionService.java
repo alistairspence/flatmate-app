@@ -31,10 +31,13 @@ public class TransactionService {
     }
 
     public Transaction createTransaction(final Transaction transaction) {
-        Account account = accountRepository.findAccountByUsernameAndPassword(transaction.getAccount().getUsername(), transaction.getAccount().getPassword());
+        // TODO(alistair): why is this not just 'final Account account = transaction.getAccount()'?
+        final String username = transaction.getAccount().getUsername();
+        final String password = transaction.getAccount().getPassword();
+        final Account account = accountRepository.findAccountByUsernameAndPassword(username, password);
         transaction.setAccount(account);
-        Transaction pendingTransaction = this.transactionRepository.save(transaction);
-        Set<Transaction> transactionSet = new HashSet<>();
+        final Transaction pendingTransaction = transactionRepository.save(transaction);
+        final Set<Transaction> transactionSet = new HashSet<>();
         transactionSet.add(pendingTransaction);
         account.setTransactions(transactionSet);
         return pendingTransaction;
