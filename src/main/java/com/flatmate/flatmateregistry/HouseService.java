@@ -48,8 +48,7 @@ public class HouseService {
         final Account userToAdd = accountRepository.findOne(userId);
         temporaryHouse.addUser(userToAdd);
         userToAdd.setHouse(temporaryHouse);
-        final House updatedHouse = houseRepository.save(temporaryHouse);
-        return updatedHouse;
+        return houseRepository.save(temporaryHouse);
     }
 
     public House removeUserFromHouse(final Long houseId, final Long userId) {
