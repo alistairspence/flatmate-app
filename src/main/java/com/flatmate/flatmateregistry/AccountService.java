@@ -36,11 +36,10 @@ public class AccountService {
     }
 
     public void deleteAccount(final Long userId) {
-        Account accountToDelete = accountRepository.findOne(userId);
-        Set<Transaction> transactions = accountToDelete.getTransactions();
-        for (Transaction t : transactions) {
-            transactionRepository.delete(t.getId());
-        }
+        final Account accountToDelete = accountRepository.findOne(userId);
+        final Set<Transaction> transactions = accountToDelete.getTransactions();
+        transactions.forEach(transaction ->
+                transactionRepository.delete(transaction.getId()));
         accountRepository.delete(userId);
     }
 
