@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 public class AccountControllerTest {
 
     @InjectMocks
-    private AccountController accountController;
+    private AccountController underTest;
 
     @Mock
     private AccountService accountService;
@@ -31,24 +31,22 @@ public class AccountControllerTest {
     @Test
     public void shouldGetAccount() {
         when(accountService.getAccountById(account.getId())).thenReturn(account);
-        Assert.assertEquals(account, accountController.getAccount(account.getId()));
+        Assert.assertEquals(account, underTest.getAccountById(account.getId()));
     }
 
     @Test
     public void shouldGetAllAccounts() {
         List<Account> accounts = new ArrayList<>();
-        when(accountService.getAccounts()).thenReturn(accounts);
-        Assert.assertEquals(accounts, accountController.getAccounts());
+        when(accountService.getAllAccounts()).thenReturn(accounts);
+        Assert.assertEquals(accounts, underTest.getAllAccounts());
     }
 
     @Test
     public void shouldCreateValidAccount() {
         Account account = new Account("test", "test");
         when(accountService.createAccount(account)).thenReturn(account);
-        Assert.assertEquals(account, accountController.createAccount(account));
+        Assert.assertEquals(account, underTest.createAccount(account));
     }
-
-    // TODO(alistair): how should these be tested?
 
     @Test
     public void shouldNotCreateInvalidAccount() {

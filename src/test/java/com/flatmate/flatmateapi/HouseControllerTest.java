@@ -2,7 +2,7 @@ package com.flatmate.flatmateapi;
 
 import com.flatmate.flatmatepersistence.Account;
 import com.flatmate.flatmatepersistence.House;
-import com.flatmate.flatmateregistry.HouseService;
+import com.flatmate.flatmateregistry.HouseServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,10 +21,10 @@ import static org.mockito.Mockito.when;
 public class HouseControllerTest {
 
     @InjectMocks
-    private HouseController houseController;
+    private HouseController underTest;
 
     @Mock
-    private HouseService houseService;
+    private HouseServiceImpl houseService;
 
     @Mock
     private House house;
@@ -35,24 +35,22 @@ public class HouseControllerTest {
     @Test
     public void shouldGetHouse() {
         when(houseService.getHouseById(house.getId())).thenReturn(house);
-        Assert.assertEquals(house, houseController.getHouse(house.getId()));
+        Assert.assertEquals(house, underTest.getHouseById(house.getId()));
     }
 
     @Test
     public void shouldGetAllHouses() {
         List<House> houses = new ArrayList<>();
         houses.add(house);
-        when(houseService.getHouses()).thenReturn(houses);
-        Assert.assertEquals(houses, houseController.getHouses());
+        when(houseService.getAllHouses()).thenReturn(houses);
+        Assert.assertEquals(houses, underTest.getAllHouses());
     }
 
     @Test
     public void shouldCreateValidHouse() {
         when(houseService.createHouse(house)).thenReturn(house);
-        Assert.assertEquals(house, houseController.createHouse(house));
+        Assert.assertEquals(house, underTest.createHouse(house));
     }
-
-    // TODO(alistair): how should these be tested?
 
     @Test
     public void shouldNotCreateInvalidHouse() {
@@ -68,14 +66,14 @@ public class HouseControllerTest {
 
     @Test
     public void shouldAddUserToHouse() {
-        when(houseService.addUserToHouse(house.getId(), account.getId())).thenReturn(house);
-        Assert.assertEquals(house, houseController.addUserToHouse(house.getId(), account.getId()));
+        when(houseService.addAccountToHouse(house.getId(), account.getId())).thenReturn(house);
+        Assert.assertEquals(house, underTest.addAccountToHouse(house.getId(), account.getId()));
     }
 
     @Test
     public void shouldRemoveUserFromHouse() {
-        when(houseService.removeUserFromHouse(house.getId(), account.getId())).thenReturn(house);
-        Assert.assertEquals(house, houseController.removeUserFromHouse(house.getId(), account.getId()));
+        when(houseService.removeAccountFromHouse(house.getId(), account.getId())).thenReturn(house);
+        Assert.assertEquals(house, underTest.removeAccountFromHouse(house.getId(), account.getId()));
     }
 
 }

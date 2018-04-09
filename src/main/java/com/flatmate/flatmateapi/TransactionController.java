@@ -1,7 +1,7 @@
 package com.flatmate.flatmateapi;
 
 import com.flatmate.flatmatepersistence.Transaction;
-import com.flatmate.flatmateregistry.TransactionService;
+import com.flatmate.flatmateregistry.TransactionServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,25 +17,25 @@ import java.util.List;
 @RequestMapping("/transactions")
 public class TransactionController {
 
-	private final TransactionService transactionService;
+	private final TransactionServiceImpl transactionService;
 
 	@Autowired
-	public TransactionController(final TransactionService transactionService) {
+	public TransactionController(final TransactionServiceImpl transactionService) {
 		this.transactionService = transactionService;
 	}
 
 	@ResponseBody
 	@RequestMapping(value = "/{transactionId}", method = RequestMethod.GET)
-	public Transaction getTransaction(@PathVariable final Long transactionId) { return transactionService.getTransactionById(transactionId); }
+	public Transaction getTransactionById(@PathVariable final Long transactionId) { return transactionService.getTransactionById(transactionId); }
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<Transaction> getTransactions() {
-		return transactionService.getTransactions();
+	public List<Transaction> getAllTransactions() {
+		return transactionService.getAllTransactions();
 	}
 
 	@ResponseBody
 	@RequestMapping(method = RequestMethod.POST)
-	public Transaction postTransaction(@RequestBody final Transaction transaction) {
+	public Transaction createTransaction(@RequestBody final Transaction transaction) {
 		transaction.setLocalDateTime(LocalDateTime.now());
 		return transactionService.createTransaction(transaction);
 	}

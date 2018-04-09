@@ -17,10 +17,10 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
-public class AccountServiceTest {
+public class AccountServiceImplTest {
 
     @InjectMocks
-    private AccountService accountService;
+    private AccountServiceImpl underTest;
 
     @Mock
     private AccountRepository accountRepository;
@@ -37,7 +37,7 @@ public class AccountServiceTest {
     @Test
     public void shouldGetAccountById() {
         when(accountRepository.findOne(account.getId())).thenReturn(account);
-        Assert.assertEquals(account, accountService.getAccountById(account.getId()));
+        Assert.assertEquals(account, underTest.getAccountById(account.getId()));
     }
 
     @Test
@@ -45,16 +45,14 @@ public class AccountServiceTest {
         List<Account> accounts = new ArrayList<>();
         accounts.add(account);
         when(accountRepository.findAll()).thenReturn(accounts);
-        Assert.assertEquals(accounts, accountService.getAccounts());
+        Assert.assertEquals(accounts, underTest.getAllAccounts());
     }
 
     @Test
     public void shouldCreateValidAccount() {
         when(accountRepository.save(account)).thenReturn(account);
-        Assert.assertEquals(account, accountService.createAccount(account));
+        Assert.assertEquals(account, underTest.createAccount(account));
     }
-
-    // TODO(alistair): how should these be tested?
 
     @Test
     public void shouldNotCreateInvalidAccount() {

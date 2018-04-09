@@ -1,46 +1,19 @@
 package com.flatmate.flatmateregistry;
 
 import com.flatmate.flatmatepersistence.Account;
-import com.flatmate.flatmatepersistence.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
-@Service
-public class AccountService {
+public interface AccountService {
 
-    private final AccountRepository accountRepository;
-    private final TransactionRepository transactionRepository;
+    Account getAccountById(final Long accountId);
 
-    @Autowired
-    public AccountService(final AccountRepository accountRepository, final TransactionRepository transactionRepository) {
-        this.accountRepository = accountRepository;
-        this.transactionRepository = transactionRepository;
-    }
+    List<Account> getAllAccounts();
 
-    public Account getAccountById(final Long userId) {
-        return accountRepository.findOne(userId);
-    }
+    Account createAccount(final Account account);
 
-    public List<Account> getAccounts() {
-        final List<Account> accounts = new ArrayList<>();
-        accountRepository.findAll().forEach(accounts::add);
-        return accounts;
-    }
+    Account updateAccount(final Long accountId, final Account account);
 
-    public Account createAccount(final Account account) {
-        return accountRepository.save(account);
-    }
-
-    public void deleteAccount(final Long userId) {
-        final Account accountToDelete = accountRepository.findOne(userId);
-        final Set<Transaction> transactions = accountToDelete.getTransactions();
-        transactions.forEach(transaction ->
-                transactionRepository.delete(transaction.getId()));
-        accountRepository.delete(userId);
-    }
+    void deleteAccount(final Long accountId);
 
 }

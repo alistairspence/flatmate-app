@@ -19,7 +19,7 @@ public class House {
     private String name;
 
     @OneToMany(mappedBy = "house")
-    private Set<Account> users = new HashSet<>();
+    private Set<Account> accounts = new HashSet<>();
 
     public House() {}
 
@@ -31,12 +31,12 @@ public class House {
 
     public String getName() { return name; }
 
-    public Set<Account> getUsers() { return users; }
+    public Set<Account> getAccounts() { return accounts; }
 
-    public void addUser(final Account account) { users.add(account); }
+    public void addAccount(final Account account) { accounts.add(account); }
 
-    public void removeUser(final Account account) { users.remove(account); }
+    public void removeAccount(final Account account) { accounts.remove(account); }
 
-    public void setUsers(final Set<Account> users) { this.users = users; }
+    public void setAccounts(final Set<Account> accounts) { this.accounts = accounts; }
 
 }

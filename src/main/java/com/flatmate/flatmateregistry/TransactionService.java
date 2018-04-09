@@ -1,48 +1,19 @@
 package com.flatmate.flatmateregistry;
 
-import com.flatmate.flatmatepersistence.Account;
 import com.flatmate.flatmatepersistence.Transaction;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
-@Service
-public class TransactionService {
+public interface TransactionService {
 
-    private final AccountRepository accountRepository;
-    private final TransactionRepository transactionRepository;
+    Transaction getTransactionById(final Long transactionId);
 
-    @Autowired
-    public TransactionService(final AccountRepository accountRepository, final TransactionRepository transactionRepository) {
-        this.accountRepository = accountRepository;
-        this.transactionRepository = transactionRepository;
-    }
+    List<Transaction> getAllTransactions();
 
-    public Transaction getTransactionById(final Long transactionId) { return transactionRepository.findOne(transactionId); }
+    Transaction createTransaction(final Transaction transaction);
 
-    public List<Transaction> getTransactions() {
-        final List<Transaction> transactions = new ArrayList<>();
-        transactionRepository.findAll().forEach(transactions::add);
-        return transactions;
-    }
+    Transaction updateTransaction(final Long transactionId, final Transaction transaction);
 
-    public Transaction createTransaction(final Transaction transaction) {
-        // TODO(alistair): why is this not just 'final Account account = transaction.getAccount()'?
-        final String username = transaction.getAccount().getUsername();
-        final String password = transaction.getAccount().getPassword();
-        final Account account = accountRepository.findAccountByUsernameAndPassword(username, password);
-        transaction.setAccount(account);
-        final Transaction pendingTransaction = transactionRepository.save(transaction);
-        final Set<Transaction> transactionSet = new HashSet<>();
-        transactionSet.add(pendingTransaction);
-        account.setTransactions(transactionSet);
-        return pendingTransaction;
-    }
-
-    public void deleteTransaction(final Long transactionId) { transactionRepository.delete(transactionId); }
+    void deleteTransaction(final Long transactionId);
 
 }
