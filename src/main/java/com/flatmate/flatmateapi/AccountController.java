@@ -24,14 +24,14 @@ public class AccountController {
     }
 
     @ResponseBody
-    @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
-    public Account getAccount(@PathVariable final Long userId) {
-        return accountService.getAccountById(userId);
+    @RequestMapping(value = "/{accountId}", method = RequestMethod.GET)
+    public Account getAccountById(@PathVariable final Long accountId) {
+        return accountService.getAccountById(accountId);
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Account> getAccounts() {
-        return accountService.getAccounts();
+    public List<Account> getAllAccounts() {
+        return accountService.getAllAccounts();
     }
 
     @ResponseBody
@@ -40,9 +40,9 @@ public class AccountController {
         return accountService.createAccount(account);
     }
 
-    @RequestMapping(value = "/{userId}", method = RequestMethod.DELETE)
-    public void deleteAccount(@PathVariable final Long userId) {
-        accountService.deleteAccount(userId);
+    @RequestMapping(value = "/{accountId}", method = RequestMethod.DELETE)
+    public void deleteAccount(@PathVariable final Long accountId) {
+        accountService.deleteAccount(accountId);
     }
 
 }

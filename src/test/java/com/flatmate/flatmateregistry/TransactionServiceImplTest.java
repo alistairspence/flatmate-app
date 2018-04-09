@@ -17,10 +17,10 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
-public class TransactionServiceTest {
+public class TransactionServiceImplTest {
 
     @InjectMocks
-    private TransactionService transactionService;
+    private TransactionServiceImpl underTest;
 
     @Mock
     private TransactionRepository transactionRepository;
@@ -37,7 +37,7 @@ public class TransactionServiceTest {
     @Test
     public void shouldGetTransaction() {
         when(transactionRepository.findOne(transaction.getId())).thenReturn(transaction);
-        Assert.assertEquals(transaction, transactionService.getTransactionById(transaction.getId()));
+        Assert.assertEquals(transaction, underTest.getTransactionById(transaction.getId()));
     }
 
     @Test
@@ -45,10 +45,8 @@ public class TransactionServiceTest {
         List<Transaction> transactions = new ArrayList<>();
         transactions.add(transaction);
         when(transactionRepository.findAll()).thenReturn(transactions);
-        Assert.assertEquals(transactions, transactionService.getTransactions());
+        Assert.assertEquals(transactions, underTest.getAllTransactions());
     }
-
-    //TODO(alistair): how should these be tested?
 
     @Test
     public void shouldCreateTransaction() {

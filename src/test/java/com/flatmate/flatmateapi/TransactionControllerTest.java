@@ -2,7 +2,7 @@ package com.flatmate.flatmateapi;
 
 import com.flatmate.flatmatepersistence.Account;
 import com.flatmate.flatmatepersistence.Transaction;
-import com.flatmate.flatmateregistry.TransactionService;
+import com.flatmate.flatmateregistry.TransactionServiceImpl;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -21,10 +21,10 @@ import static org.mockito.Mockito.when;
 public class TransactionControllerTest {
 
     @InjectMocks
-    private TransactionController transactionController;
+    private TransactionController underTest;
 
     @Mock
-    private TransactionService transactionService;
+    private TransactionServiceImpl transactionService;
 
     @Mock
     private Transaction transaction;
@@ -35,24 +35,22 @@ public class TransactionControllerTest {
     @Test
     public void shouldGetTransaction() {
         when(transactionService.getTransactionById(transaction.getId())).thenReturn(transaction);
-        Assert.assertEquals(transaction, transactionController.getTransaction(transaction.getId()));
+        Assert.assertEquals(transaction, underTest.getTransactionById(transaction.getId()));
     }
 
     @Test
     public void shouldGetAllTransactions() {
         List<Transaction> transactions = new ArrayList<>();
-        when(transactionService.getTransactions()).thenReturn(transactions);
-        Assert.assertEquals(transactions, transactionController.getTransactions());
+        when(transactionService.getAllTransactions()).thenReturn(transactions);
+        Assert.assertEquals(transactions, underTest.getAllTransactions());
     }
 
     @Test
     public void shouldCreateValidTransaction() {
         Transaction transaction = new Transaction(account, 10);
         when(transactionService.createTransaction(transaction)).thenReturn(transaction);
-        Assert.assertEquals(transaction, transactionController.postTransaction(transaction));
+        Assert.assertEquals(transaction, underTest.createTransaction(transaction));
     }
-
-    // TODO(alistair): how should these be tested?
 
     @Test
     public void shouldNotCreateInvalidTransaction() {

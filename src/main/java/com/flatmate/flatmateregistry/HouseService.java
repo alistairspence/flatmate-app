@@ -2,60 +2,26 @@ package com.flatmate.flatmateregistry;
 
 import com.flatmate.flatmatepersistence.Account;
 import com.flatmate.flatmatepersistence.House;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
-@Service
-public class HouseService {
+public interface HouseService {
 
-    private final HouseRepository houseRepository;
-    private final AccountRepository accountRepository;
+    House getHouseById(final Long houseId);
 
-    @Autowired
-    public HouseService(final HouseRepository houseRepository, final AccountRepository accountRepository) {
-        this.houseRepository = houseRepository;
-        this.accountRepository = accountRepository;
-    }
+    List<House> getAllHouses();
 
-    public House getHouseById(final Long houseId) { return houseRepository.findOne(houseId); }
+    House createHouse(final House house);
 
-    public List<House> getHouses() {
-        final List<House> houses = new ArrayList<>();
-        houseRepository.findAll().forEach(houses::add);
-        return houses;
-    }
+    House updateHouse(final Long houseId, final House house);
 
-    public House createHouse(final House house) { return houseRepository.save(house); }
+    void deleteHouse(final Long houseId);
 
-    public void deleteHouse(final Long houseId) {
-        final House houseToDelete = houseRepository.findOne(houseId);
-        final Set<Account> users = houseToDelete.getUsers();
-        users.forEach(account -> account.setHouse(null));
-        houseRepository.delete(houseId);
-    }
+    Set<Account> getAccountsForHouse(final Long houseId);
 
-    public Set<Account> getUsersForHouse(final Long houseId) {
-        final House houseToReturn = houseRepository.findOne(houseId);
-        return houseToReturn.getUsers();
-    }
+    House addAccountToHouse(final Long houseId, final Long accountId);
 
-    public House addUserToHouse(final Long houseId, final Long userId) {
-        final House temporaryHouse = houseRepository.findOne(houseId);
-        final Account userToAdd = accountRepository.findOne(userId);
-        temporaryHouse.addUser(userToAdd);
-        userToAdd.setHouse(temporaryHouse);
-        return houseRepository.save(temporaryHouse);
-    }
-
-    public House removeUserFromHouse(final Long houseId, final Long userId) {
-        final Account userToRemove = accountRepository.findOne(userId);
-        final House house = houseRepository.findOne(houseId);
-        house.removeUser(userToRemove);
-        return houseRepository.save(house);
-    }
+    House removeAccountFromHouse(final Long houseId, final Long accountId);
 
 }

@@ -25,10 +25,10 @@ public class HouseController {
 
     @ResponseBody
     @RequestMapping(value = "/{houseId}", method = RequestMethod.GET)
-    public House getHouse(@PathVariable final Long houseId) { return houseService.getHouseById(houseId); }
+    public House getHouseById(@PathVariable final Long houseId) { return houseService.getHouseById(houseId); }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<House> getHouses() { return houseService.getHouses(); }
+    public List<House> getAllHouses() { return houseService.getAllHouses(); }
 
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST)
@@ -38,16 +38,16 @@ public class HouseController {
     public void deleteHouse(@PathVariable final Long houseId) { houseService.deleteHouse(houseId); }
 
     @RequestMapping(value = "/{houseId}/users", method = RequestMethod.GET)
-    public Set<Account> getUsersForHouse(@PathVariable final Long houseId) { return houseService.getUsersForHouse(houseId); }
+    public Set<Account> getAccountsForHouse(@PathVariable final Long houseId) { return houseService.getAccountsForHouse(houseId); }
 
-    @RequestMapping(value = "/{houseId}/users/{userId}", method = RequestMethod.POST)
-    public House addUserToHouse(@PathVariable final Long houseId, @PathVariable final Long userId) {
-        return houseService.addUserToHouse(houseId, userId);
+    @RequestMapping(value = "/{houseId}/users/{accountId}", method = RequestMethod.POST)
+    public House addAccountToHouse(@PathVariable final Long houseId, @PathVariable final Long accountId) {
+        return houseService.addAccountToHouse(houseId, accountId);
     }
 
-    @RequestMapping(value = "/{houseId}/users/{userId}", method = RequestMethod.DELETE)
-    public House removeUserFromHouse(@PathVariable final Long houseId, @PathVariable final Long userId) {
-        return houseService.removeUserFromHouse(houseId, userId);
+    @RequestMapping(value = "/{houseId}/users/{accountId}", method = RequestMethod.DELETE)
+    public House removeAccountFromHouse(@PathVariable final Long houseId, @PathVariable final Long accountId) {
+        return houseService.removeAccountFromHouse(houseId, accountId);
     }
 
 }

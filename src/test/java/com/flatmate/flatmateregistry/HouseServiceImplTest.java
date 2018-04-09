@@ -17,10 +17,10 @@ import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
-public class HouseServiceTest {
+public class HouseServiceImplTest {
 
     @InjectMocks
-    private HouseService houseService;
+    private HouseServiceImpl underTest;
 
     @Mock
     private HouseRepository houseRepository;
@@ -34,7 +34,7 @@ public class HouseServiceTest {
     @Test
     public void shouldGetHouseById() {
         when(houseRepository.findOne(house.getId())).thenReturn(house);
-        Assert.assertEquals(house, houseService.getHouseById(house.getId()));
+        Assert.assertEquals(house, underTest.getHouseById(house.getId()));
     }
 
     @Test
@@ -42,16 +42,14 @@ public class HouseServiceTest {
         List<House> houses = new ArrayList<>();
         houses.add(house);
         when(houseRepository.findAll()).thenReturn(houses);
-        Assert.assertEquals(houses, houseService.getHouses());
+        Assert.assertEquals(houses, underTest.getAllHouses());
     }
 
     @Test
     public void shouldCreateValidHouse() {
         when(houseRepository.save(house)).thenReturn(house);
-        Assert.assertEquals(house, houseService.createHouse(house));
+        Assert.assertEquals(house, underTest.createHouse(house));
     }
-
-    // TODO(alistair): how should these be tested?
 
     @Test
     public void shouldNotCreateInvalidHouse() {
