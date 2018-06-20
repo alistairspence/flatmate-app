@@ -2,6 +2,7 @@ package com.flatmate.flatmateregistry;
 
 import com.flatmate.flatmatepersistence.Account;
 import com.flatmate.flatmatepersistence.Transaction;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,9 +27,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public List<Account> getAllAccounts() {
-        final List<Account> accounts = new ArrayList<>();
-        accountRepository.findAll().forEach(accounts::add);
-        return accounts;
+        return Lists.newArrayList(accountRepository.findAll());
     }
 
     public Account createAccount(final Account account) {
