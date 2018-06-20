@@ -40,6 +40,10 @@ public class AccountController {
         return accountService.createAccount(account);
     }
 
+    @ResponseBody
+    @RequestMapping(method = RequestMethod.PUT)
+    public Account updateAccount() { return null; }
+
     @RequestMapping(value = "/{accountId}", method = RequestMethod.DELETE)
     public void deleteAccount(@PathVariable final Long accountId) {
         accountService.deleteAccount(accountId);

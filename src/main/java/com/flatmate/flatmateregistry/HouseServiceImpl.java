@@ -2,6 +2,7 @@ package com.flatmate.flatmateregistry;
 
 import com.flatmate.flatmatepersistence.Account;
 import com.flatmate.flatmatepersistence.House;
+import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,9 +25,7 @@ public class HouseServiceImpl implements HouseService {
     public House getHouseById(final Long houseId) { return houseRepository.findOne(houseId); }
 
     public List<House> getAllHouses() {
-        final List<House> houses = new ArrayList<>();
-        houseRepository.findAll().forEach(houses::add);
-        return houses;
+        return Lists.newArrayList(houseRepository.findAll());
     }
 
     public House createHouse(final House house) { return houseRepository.save(house); }
@@ -36,9 +35,7 @@ public class HouseServiceImpl implements HouseService {
     }
 
     public void deleteHouse(final Long houseId) {
-        final House houseToDelete = houseRepository.findOne(houseId);
-        final Set<Account> users = houseToDelete.getAccounts();
-        users.forEach(account -> account.setHouse(null));
+        houseRepository.findOne(houseId).getAccounts().forEach(account -> account.setHouse(null));
         houseRepository.delete(houseId);
     }
 
