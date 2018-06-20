@@ -34,6 +34,12 @@ public class HouseController {
     @RequestMapping(method = RequestMethod.POST)
     public House createHouse(@RequestBody final House house) { return houseService.createHouse(house); }
 
+    @ResponseBody
+    @RequestMapping(value = "/{houseId}", method = RequestMethod.PUT)
+    public House updateHouse(@PathVariable final Long houseId, final House house) {
+        return houseService.updateHouse(houseId, house);
+    }
+
     @RequestMapping(value = "/{houseId}", method = RequestMethod.DELETE)
     public void deleteHouse(@PathVariable final Long houseId) { houseService.deleteHouse(houseId); }
 

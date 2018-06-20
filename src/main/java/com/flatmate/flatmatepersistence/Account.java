@@ -46,6 +46,8 @@ public class Account {
 
 	public Long getId() { return id; }
 
+	public void setId(final Long id) { this.id = id; }
+
 	public String getUsername() { return username; }
 
 	public String getPassword() { return password; }

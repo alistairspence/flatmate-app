@@ -35,7 +35,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public Account updateAccount(final Long accountId, final Account account) {
-        return null;
+        account.setId(accountId);
+        return accountRepository.save(account);
     }
 
     public void deleteAccount(final Long accountId) {

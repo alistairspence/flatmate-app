@@ -41,8 +41,10 @@ public class AccountController {
     }
 
     @ResponseBody
-    @RequestMapping(method = RequestMethod.PUT)
-    public Account updateAccount() { return null; }
+    @RequestMapping(value = "/{accountId}", method = RequestMethod.PUT)
+    public Account updateAccount(@PathVariable final Long accountId, @RequestBody final Account account) {
+        return accountService.updateAccount(accountId, account);
+    }
 
     @RequestMapping(value = "/{accountId}", method = RequestMethod.DELETE)
     public void deleteAccount(@PathVariable final Long accountId) {

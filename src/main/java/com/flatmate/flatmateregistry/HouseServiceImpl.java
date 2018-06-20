@@ -31,7 +31,8 @@ public class HouseServiceImpl implements HouseService {
     public House createHouse(final House house) { return houseRepository.save(house); }
 
     public House updateHouse(final Long houseId, final House house) {
-        return null;
+        house.setId(houseId);
+        return houseRepository.save(house);
     }
 
     public void deleteHouse(final Long houseId) {
