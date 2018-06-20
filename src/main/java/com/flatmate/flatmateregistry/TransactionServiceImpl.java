@@ -43,7 +43,8 @@ public class TransactionServiceImpl implements TransactionService {
     }
 
     public Transaction updateTransaction(final Long transactionId, final Transaction transaction) {
-        return null;
+        transaction.setId(transactionId);
+        return transactionRepository.save(transaction);
     }
 
     public void deleteTransaction(final Long transactionId) { transactionRepository.delete(transactionId); }
