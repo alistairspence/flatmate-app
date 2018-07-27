@@ -44,7 +44,9 @@ public class TransactionServiceImpl implements TransactionService {
 
     public Transaction updateTransaction(final Long transactionId, final Transaction transaction) {
         transaction.setId(transactionId);
-        return transactionRepository.save(transaction);
+        // TODO(alistair): is newTransaction necessary?
+        final Transaction newTransaction = transactionRepository.save(transaction);
+        return newTransaction;
     }
 
     public void deleteTransaction(final Long transactionId) { transactionRepository.delete(transactionId); }

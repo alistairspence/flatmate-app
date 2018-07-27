@@ -1,7 +1,6 @@
 package com.flatmate.flatmateregistry;
 
 import com.flatmate.flatmatepersistence.Account;
-import com.flatmate.flatmatepersistence.Transaction;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -26,13 +25,10 @@ public class AccountServiceImplTest {
     private AccountRepository accountRepository;
 
     @Mock
-    private TransactionRepository transactionRepository;
-
-    @Mock
     private Account account;
 
     @Mock
-    private Transaction transaction;
+    private Account account2;
 
     @Test
     public void shouldGetAccountById() {
@@ -55,15 +51,15 @@ public class AccountServiceImplTest {
     }
 
     @Test
-    public void shouldNotCreateInvalidAccount() {
+    public void shouldUpdateValidAccount() {
+        when(accountRepository.findOne(account.getId())).thenReturn(account);
+        when(accountRepository.save(account2)).thenReturn(account2);
+        Assert.assertEquals(account2, underTest.updateAccount(account.getId(), account2));
     }
 
     @Test
     public void shouldDeleteValidAccount() {
-    }
-
-    @Test
-    public void shouldNotDeleteInvalidAccount() {
+        // TODO(alistair): what is the best way to test this?
     }
 
 }
