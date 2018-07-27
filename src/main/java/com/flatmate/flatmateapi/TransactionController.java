@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
+//TODO(alistair): /api/transactions? (across all controllers)
 @RestController
-@RequestMapping("/transactions")
+@RequestMapping(value = "/api/transactions", produces = "application/json")
 public class TransactionController {
 
 	private final TransactionServiceImpl transactionService;
@@ -41,7 +41,6 @@ public class TransactionController {
 	@RequestMapping(method = RequestMethod.POST)
 	@ResponseStatus(HttpStatus.CREATED)
 	public Transaction createTransaction(@RequestBody final Transaction transaction) {
-		transaction.setLocalDateTime(LocalDateTime.now());
 		return transactionService.createTransaction(transaction);
 	}
 

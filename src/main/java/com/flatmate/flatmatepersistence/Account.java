@@ -18,6 +18,7 @@ import java.util.HashSet;
 @Table(name = "flatmate_account")
 public class Account {
 
+	// TODO(alistair): replace these with uuids
 	@Id
 	@GeneratedValue
 	private Long id;

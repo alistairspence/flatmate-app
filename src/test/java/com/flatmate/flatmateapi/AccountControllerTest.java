@@ -2,7 +2,6 @@ package com.flatmate.flatmateapi;
 
 import com.flatmate.flatmatepersistence.Account;
 import com.flatmate.flatmateregistry.AccountService;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -10,10 +9,8 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 @RunWith(MockitoJUnitRunner.class)
 @SpringBootTest
@@ -29,35 +26,35 @@ public class AccountControllerTest {
     private Account account;
 
     @Test
-    public void shouldGetAccount() {
-        when(accountService.getAccountById(account.getId())).thenReturn(account);
-        Assert.assertEquals(account, underTest.getAccountById(account.getId()));
+    public void shouldGetAccountById() {
+        underTest.getAccountById(account.getId());
+        verify(accountService, times(1)).getAccountById(account.getId());
     }
 
     @Test
     public void shouldGetAllAccounts() {
-        List<Account> accounts = new ArrayList<>();
-        when(accountService.getAllAccounts()).thenReturn(accounts);
-        Assert.assertEquals(accounts, underTest.getAllAccounts());
+        underTest.getAllAccounts();
+        verify(accountService, times(1)).getAllAccounts();
     }
 
     @Test
     public void shouldCreateValidAccount() {
-        Account account = new Account("test", "test");
-        when(accountService.createAccount(account)).thenReturn(account);
-        Assert.assertEquals(account, underTest.createAccount(account));
+        final Account validAccount = new Account("test", "test");
+        underTest.createAccount(validAccount);
+        verify(accountService, times(1)).createAccount(validAccount);
     }
 
     @Test
-    public void shouldNotCreateInvalidAccount() {
+    public void shouldUpdateValidAccount() {
+        final Account updatedAccount = new Account("test", "update");
+        underTest.updateAccount(account.getId(), updatedAccount);
+        verify(accountService, times(1)).updateAccount(account.getId(), updatedAccount);
     }
 
     @Test
     public void shouldDeleteValidAccount() {
-    }
-
-    @Test
-    public void shouldNotDeleteInvalidAccount() {
+        underTest.deleteAccount(account.getId());
+        verify(accountService, times(1)).deleteAccount(account.getId());
     }
 
 }

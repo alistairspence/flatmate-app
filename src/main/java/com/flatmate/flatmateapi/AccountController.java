@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/accounts", produces = "application/json")
+@RequestMapping(value = "/api/accounts", produces = "application/json")
 public class AccountController {
 
     private final AccountService accountService;

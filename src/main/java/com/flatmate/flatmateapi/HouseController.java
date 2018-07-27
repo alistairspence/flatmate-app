@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Set;
 
 @RestController
-@RequestMapping(value = "/houses", produces = "application/json")
+@RequestMapping(value = "/api/houses", produces = "application/json")
 public class HouseController {
 
     private final HouseService houseService;
