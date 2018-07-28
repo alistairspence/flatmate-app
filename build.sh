@@ -1,5 +1,5 @@
 cd
-rm -rf flatmate
+rm -rf flatmate-app
 git clone https://github.com/alistairspence/flatmate-app
 cd flatmate-app/
 mvn clean install
