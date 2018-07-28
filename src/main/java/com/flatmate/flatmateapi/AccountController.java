@@ -2,6 +2,7 @@ package com.flatmate.flatmateapi;
 
 import com.flatmate.flatmatepersistence.Account;
 import com.flatmate.flatmateregistry.AccountService;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,14 +42,14 @@ public class AccountController {
     @ResponseBody
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
-    public Account createAccount(@RequestBody final Account account) {
+    public Account createAccount(@RequestBody @Valid final Account account) {
         return accountService.createAccount(account);
     }
 
     @ResponseBody
     @RequestMapping(value = "/{accountId}", method = RequestMethod.PUT)
     @ResponseStatus(HttpStatus.OK)
-    public Account updateAccount(@PathVariable final Long accountId, @RequestBody final Account account) {
+    public Account updateAccount(@PathVariable final Long accountId, @RequestBody @Valid final Account account) {
         return accountService.updateAccount(accountId, account);
     }
 

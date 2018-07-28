@@ -13,6 +13,8 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.Set;
 import java.util.HashSet;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Entity
 @Table(name = "flatmate_account")
@@ -23,8 +25,11 @@ public class Account {
 	@GeneratedValue
 	private Long id;
 
+	@NotNull
+	@Pattern(regexp = "^[A-Za-z0-9]+$")
 	private String username;
 
+	// TODO(alistair): what sort of password validation should be done?
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	private String password;
 
