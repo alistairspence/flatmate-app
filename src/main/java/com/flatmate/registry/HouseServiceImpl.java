@@ -1,7 +1,7 @@
-package com.flatmate.flatmateregistry;
+package com.flatmate.registry;
 
-import com.flatmate.flatmatepersistence.Account;
-import com.flatmate.flatmatepersistence.House;
+import com.flatmate.persistence.Account;
+import com.flatmate.persistence.House;
 import com.google.common.collect.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
-package com.flatmate.flatmateregistry;
+package com.flatmate.registry;
 
-import com.flatmate.flatmatepersistence.Account;
+import com.flatmate.persistence.Account;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -59,7 +59,6 @@ public class AccountServiceImplTest {
 
     @Test
     public void shouldDeleteValidAccount() {
-        // TODO(alistair): what is the best way to test this?
     }
 
 }

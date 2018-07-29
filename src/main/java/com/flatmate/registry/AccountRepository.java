@@ -1,6 +1,6 @@
-package com.flatmate.flatmateregistry;
+package com.flatmate.registry;
 
-import com.flatmate.flatmatepersistence.Account;
+import com.flatmate.persistence.Account;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

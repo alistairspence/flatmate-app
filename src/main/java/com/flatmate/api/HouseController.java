@@ -1,8 +1,8 @@
-package com.flatmate.flatmateapi;
+package com.flatmate.api;
 
-import com.flatmate.flatmatepersistence.Account;
-import com.flatmate.flatmatepersistence.House;
-import com.flatmate.flatmateregistry.HouseService;
+import com.flatmate.persistence.Account;
+import com.flatmate.persistence.House;
+import com.flatmate.registry.HouseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;

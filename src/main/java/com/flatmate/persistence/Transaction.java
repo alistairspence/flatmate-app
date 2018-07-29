@@ -1,4 +1,4 @@
-package com.flatmate.flatmatepersistence;
+package com.flatmate.persistence;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.annotations.Cascade;
@@ -23,7 +23,7 @@ public class Transaction {
 
 	@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
 	@ManyToOne(fetch= FetchType.LAZY)
-    @Cascade(CascadeType.ALL)
+    @Cascade(CascadeType.DELETE)
 	@JoinTable(name = "TRANSACTION_ACCOUNT",
 		joinColumns = @JoinColumn(name = "transaction_id", referencedColumnName = "id"),
 		inverseJoinColumns = @JoinColumn(name = "account_id", referencedColumnName = "id"))

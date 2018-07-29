@@ -1,7 +1,7 @@
-package com.flatmate.flatmateregistry;
+package com.flatmate.registry;
 
-import com.flatmate.flatmatepersistence.Account;
-import com.flatmate.flatmatepersistence.House;
+import com.flatmate.persistence.Account;
+import com.flatmate.persistence.House;
 
 import java.util.List;
 import java.util.Set;

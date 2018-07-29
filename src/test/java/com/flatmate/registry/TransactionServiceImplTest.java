@@ -1,7 +1,7 @@
-package com.flatmate.flatmateregistry;
+package com.flatmate.registry;
 
-import com.flatmate.flatmatepersistence.Account;
-import com.flatmate.flatmatepersistence.Transaction;
+import com.flatmate.persistence.Account;
+import com.flatmate.persistence.Transaction;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;

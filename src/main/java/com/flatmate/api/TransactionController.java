@@ -1,7 +1,7 @@
-package com.flatmate.flatmateapi;
+package com.flatmate.api;
 
-import com.flatmate.flatmatepersistence.Transaction;
-import com.flatmate.flatmateregistry.TransactionServiceImpl;
+import com.flatmate.persistence.Transaction;
+import com.flatmate.registry.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,15 +14,14 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-//TODO(alistair): /api/transactions? (across all controllers)
 @RestController
 @RequestMapping(value = "/api/transactions", produces = "application/json")
 public class TransactionController {
 
-	private final TransactionServiceImpl transactionService;
+	private final TransactionService transactionService;
 
 	@Autowired
-	public TransactionController(final TransactionServiceImpl transactionService) {
+	public TransactionController(final TransactionService transactionService) {
 		this.transactionService = transactionService;
 	}
 

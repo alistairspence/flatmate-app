@@ -1,16 +1,16 @@
-package com.flatmate.flatmateregistry;
+package com.flatmate.registry;
 
-import com.flatmate.flatmatepersistence.Account;
-import com.flatmate.flatmatepersistence.Transaction;
+import com.flatmate.exceptions.AccountNotFoundException;
+import com.flatmate.persistence.Account;
+import com.flatmate.persistence.Transaction;
 import com.google.common.collect.Lists;
 import java.util.Objects;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Set;
-
-import static com.flatmate.ErrorHandler.handleError;
 
 @Service
 public class AccountServiceImpl implements AccountService {
@@ -25,7 +25,12 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public Account getAccountById(final Long accountId) {
-        return accountRepository.findOne(accountId);
+        final Account account = accountRepository.findOne(accountId);
+        if (Objects.isNull(account)) {
+            throw new AccountNotFoundException(HttpStatus.NOT_FOUND, accountId);
+        } else {
+            return account;
+        }
     }
 
     public List<Account> getAllAccounts() {
@@ -33,30 +38,29 @@ public class AccountServiceImpl implements AccountService {
     }
 
     public Account createAccount(final Account account) {
-        // TODO(alistair): validation?
+        // TODO(alistair): need to fix creating two accounts with same username/pw - breaks transactions
         return accountRepository.save(account);
     }
 
     public Account updateAccount(final Long accountId, final Account account) {
-        if (Objects.nonNull(accountRepository.findOne(accountId))) {
+        final Account accountToUpdate = accountRepository.findOne(accountId);
+        if (Objects.isNull(accountToUpdate)) {
+            throw new AccountNotFoundException(HttpStatus.NOT_FOUND, accountId);
+        } else {
             account.setId(accountId);
             return accountRepository.save(account);
-        } else {
-            // TODO(alistair): implement some sort of error handling here
-            handleError("Account not found!");
-            return null;
         }
     }
 
     public void deleteAccount(final Long accountId) {
-        final Account accountToDelete = accountRepository.findOne(accountId);
-        if (Objects.nonNull(accountToDelete)) {
-            final Set<Transaction> transactions = accountToDelete.getTransactions();
+        final Account account = accountRepository.findOne(accountId);
+        if (Objects.isNull(account)) {
+            throw new AccountNotFoundException(HttpStatus.NOT_FOUND, accountId);
+        } else {
+            final Set<Transaction> transactions = account.getTransactions();
             transactions.forEach(transaction ->
                     transactionRepository.delete(transaction.getId()));
             accountRepository.delete(accountId);
-        } else {
-            handleError("Account not found!");
         }
     }
 

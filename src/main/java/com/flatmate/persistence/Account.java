@@ -1,4 +1,4 @@
-package com.flatmate.flatmatepersistence;
+package com.flatmate.persistence;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

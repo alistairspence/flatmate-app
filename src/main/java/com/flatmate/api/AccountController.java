@@ -1,7 +1,7 @@
-package com.flatmate.flatmateapi;
+package com.flatmate.api;
 
-import com.flatmate.flatmatepersistence.Account;
-import com.flatmate.flatmateregistry.AccountService;
+import com.flatmate.persistence.Account;
+import com.flatmate.registry.AccountService;
 import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,6 +18,8 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/accounts", produces = "application/json")
 public class AccountController {
+
+    // TODO(alistair): not a good place for this but remove flatmate from all package names (inc tests)
 
     private final AccountService accountService;
 
@@ -58,5 +60,7 @@ public class AccountController {
     public void deleteAccount(@PathVariable final Long accountId) {
         accountService.deleteAccount(accountId);
     }
+
+    // TODO(alistair): transactions on account actions?
 
 }

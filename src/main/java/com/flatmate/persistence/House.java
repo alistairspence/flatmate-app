@@ -1,4 +1,4 @@
-package com.flatmate.flatmatepersistence;
+package com.flatmate.persistence;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
